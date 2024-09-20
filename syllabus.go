@@ -1,31 +1,37 @@
+// syllabus.go
 package main
 
 import (
+	"embed"
 	"fmt"
 	"net/http"
 )
 
-type Syllabus struct {
-	Title   string `json:"title"`
-	Content string `json:"content"`
-}
+//go:embed syllabus.json
+var syllabusFile embed.FS
 
-func syllabusHandler(w http.ResponseWriter, r *http.Request) {
+// SyllabusHandler handles the /syllabus API
+func SyllabusHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
-	case http.MethodGet:
-		// Return the embedded JSON syllabus
+	case "GET":
+		// Read embedded JSON file and return it
+		data, err := syllabusFile.ReadFile("syllabus.json")
+		if err != nil {
+			http.Error(w, "Error reading syllabus", http.StatusInternalServerError)
+			return
+		}
 		w.Header().Set("Content-Type", "application/json")
-		w.Write(syllabusData)
-	case http.MethodDelete:
-		// Respond with stubbed delete message
+		w.Write(data)
+	case "DELETE":
+		// Stubbed DELETE implementation
 		fmt.Fprintln(w, "deleted – stubbed")
-	case http.MethodPost:
-		// Respond with stubbed create message
+	case "POST":
+		// Stubbed POST (Create) implementation
 		fmt.Fprintln(w, "create-stubbed")
-	case http.MethodPut:
-		// Respond with stubbed update message
+	case "PUT":
+		// Stubbed PUT (Update) implementation
 		fmt.Fprintln(w, "update-stubbed")
 	default:
-		w.WriteHeader(http.StatusMethodNotAllowed)
+		http.Error(w, "Unsupported method", http.StatusMethodNotAllowed)
 	}
 }
