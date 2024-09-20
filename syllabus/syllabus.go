@@ -1,5 +1,5 @@
 // syllabus.go
-package main
+package syllabus
 
 import (
 	"embed"
