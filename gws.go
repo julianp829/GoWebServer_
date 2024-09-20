@@ -11,7 +11,35 @@ import (
 	"github.com/julianp829/GoWebServer_/syllabus"
 )
 
+func printHelp() {
+	helpMessage := `
+Go Web Server (GWS) Help:
+
+This application provides the following APIs:
+
+1. /hello-world         - Responds with plain text "Hello World – GWS"
+2. /hello-world-html    - Responds with HTML "Hello World &mdash; GWS"
+3. /hello-world-json    - Responds with JSON {"message": "Hello World - GWS"}
+4. /syllabus            - Handles syllabus-related operations:
+   - GET    /syllabus   - Returns the syllabus JSON file.
+   - DELETE /syllabus   - Returns "deleted – stubbed".
+   - POST   /syllabus   - Returns "create-stubbed".
+   - PUT    /syllabus   - Returns "update-stubbed".
+
+Run the server by typing: go run gws.go
+
+Example: http://localhost:8080/hello-world
+`
+	fmt.Println(helpMessage)
+}
+
 func main() {
+	// Check if the first argument is "help"
+	if len(os.Args) > 1 && os.Args[1] == "help" {
+		printHelp()
+		return
+	}
+
 	http.HandleFunc("/hello-world", hello.HelloWorld)
 	http.HandleFunc("/hello-world-html", hello.HelloWorldHTML)
 	http.HandleFunc("/hello-world-json", hello.HelloWorldJSON)
