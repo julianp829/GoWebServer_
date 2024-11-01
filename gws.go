@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/julianp829/GoWebServer_/d6"
 	"github.com/julianp829/GoWebServer_/hello"
 	"github.com/julianp829/GoWebServer_/help"
 	"github.com/julianp829/GoWebServer_/syllabus"
