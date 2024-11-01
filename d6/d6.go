@@ -1,4 +1,4 @@
-// d6.go
+// d6/d6.go
 package d6
 
 import (
@@ -8,8 +8,8 @@ import (
 	"time"
 )
 
-// d6Handler generates and returns a random integer between 1 and 6.
-func d6Handler(w http.ResponseWriter, r *http.Request) {
+// D6Handler generates a random integer between 1 and 6 and returns it as a response.
+func D6Handler(w http.ResponseWriter, r *http.Request) {
 	rand.Seed(time.Now().UnixNano()) // Seed the random number generator
 	randomNumber := rand.Intn(6) + 1 // Generate a number between 1 and 6
 	fmt.Fprintf(w, "%d", randomNumber)

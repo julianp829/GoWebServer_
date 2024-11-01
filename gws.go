@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/julianp829/GoWebServer_/d6"
 	"github.com/julianp829/GoWebServer_/hello"
 	"github.com/julianp829/GoWebServer_/help"
 	"github.com/julianp829/GoWebServer_/syllabus"
@@ -46,7 +47,7 @@ func main() {
 	http.HandleFunc("/hello-world-json", hello.HelloWorldJSON)
 	http.HandleFunc("/syllabus", syllabus.SyllabusHandler)
 	http.HandleFunc("/help", help.Help)
-	http.HandleFunc("/d6", d6.d6Handler) // Register the /d6 handler
+	http.HandleFunc("/d6", d6.D6Handler)
 
 	// Start server
 	fmt.Println("Starting server on http://localhost:8080")
