@@ -25,6 +25,7 @@ This application provides the following APIs:
    - DELETE /syllabus   - Returns "deleted – stubbed".
    - POST   /syllabus   - Returns "create-stubbed".
    - PUT    /syllabus   - Returns "update-stubbed".
+5. /d6					- Returns a random integer between 1 and 6.
 
 Run the server by typing: go run gws.go
 
@@ -45,6 +46,7 @@ func main() {
 	http.HandleFunc("/hello-world-json", hello.HelloWorldJSON)
 	http.HandleFunc("/syllabus", syllabus.SyllabusHandler)
 	http.HandleFunc("/help", help.Help)
+	http.HandleFunc("/d6", d6Handler) // Register the /d6 handler
 
 	// Start server
 	fmt.Println("Starting server on http://localhost:8080")
