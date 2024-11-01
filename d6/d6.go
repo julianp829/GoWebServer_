@@ -1,5 +1,5 @@
 // d6.go
-package main
+package d6
 
 import (
 	"fmt"
