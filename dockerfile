@@ -1,32 +1,18 @@
-# Use the official Golang image as a build stage
-FROM golang:1.20-alpine AS builder
+# Use a lightweight Go image as the base
+FROM golang:1.23 AS builder
 
-# Set the Current Working Directory inside the container
-WORKDIR /app
+# Set the working directory in the container
+WORKDIR /build
 
-# Copy go.mod and go.sum files, if available
-COPY go.mod go.sum ./
-
-# Download all dependencies. Dependencies will be cached if the go.mod and go.sum files are not changed
-RUN go mod download
-
-# Copy the source code into the container
+# Copy all files into build directory
 COPY . .
 
-# Build the Go app
-RUN go build -o gws .
 
-# Use a smaller image to run the application
-FROM alpine:latest
+RUN go mod download
+RUN go build -o ./gws
 
-# Set the Current Working Directory inside the container
-WORKDIR /root/
+FROM gcr.io/distroless/base-debian12
 
-# Copy the pre-built binary file from the builder stage
-COPY --from=builder /app/gws .
-
-# Expose port 8080 to the outside
-EXPOSE 8080
-
-# Command to run the executable
-CMD ["./gws"]
+WORKDIR /app
+COPY --from=builder /build/gws ./gws
+CMD ["/app/gws"]

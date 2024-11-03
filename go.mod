@@ -1,3 +1,3 @@
 module github.com/julianp829/GoWebServer_
 
-go 1.23.0
+go 1.23
